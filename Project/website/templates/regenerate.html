@@ -1,0 +1,66 @@
+{% extends "logged-in-layout.html" %}
+
+{% block title %}<title>Regenerate Outfit</title>{% endblock %}
+{% block content %}
+	<!--TITLE-->
+	<div class="settings apperance">
+		<div class="adding_title">Generating Outfit</div>	
+	</div>
+
+	<!--ITEMS-->
+    <div class="generating_items apperance">
+            {% for wear in outfit %}
+				{% if wear == 'None' %}
+					<div class="single_item">
+						<div class="item_header">
+							<span class="generation_name">Here can be your advertisement.</span>
+						</div>
+						<div><img class="item_img" src="/static/images/ad.svg"></div>
+					</div>
+				{%else%}
+					<div class="single_item">
+						<div class="item_header">
+							<span class="generation_name">{{wear.label}}</span>
+						</div>
+						<div><img class="item_img" src={{wears_url_list[loop.index-1]}}></div>
+					</div>
+				{%endif%}
+            {% endfor %}
+		</div>
+
+
+	<!--LABEL-->
+	<form action="{{ url_for('generate_views.generating', id=wear_ids) }}" method="post" id="save-form">
+
+		{% if wear_ids|length == 4 %}
+	<!--GENERATE OUTFITS-->
+				<div class="generation_label apperance">
+			<label for="label" class="info_name">Label</label>
+			<input class="edit" type="text" id="label" name="outfit_label" form="save-form" required>
+		</div>
+		<div class='regenerate_button_wrapper'>
+			<a href="{{url_for('generate_views.generating')}}" class='no-underline apperance'>
+				<button type="button" class="regenerate">Regenerate</button>
+			</a>
+
+			<div class="generation_buttons apperance">
+					<button class="generation_save" type="submit" form="save-form">Save</button>
+			</div>
+		</div>
+		{% else %}
+			<a href="{{url_for('generate_views.generating')}}" class='no-underline apperance'>
+				<button type="button" class="regenerate_button_in_center">Regenerate</button>
+			</a>
+		{% endif %}
+	</form>
+
+
+	<!--NAVIGATION-->
+	<nav class="nav">
+		<a class="link apperance" href='{{ url_for("views.wardrobe") }}' method='get'><img src="/static/images/wardrobe_icon.svg" class="icon">Wardrobe</a>
+		<a class="link apperance" href='{{ url_for("wish_views.wish_list") }}'><img src="/static/images/wishlist_icon.svg" class="icon">Wishlist</a>
+		<a class="link logo apperance" href='{{url_for("generate_views.generate")}}'><img src="/static/images/logo tapped.svg"></a>
+		<a class="link apperance" href='{{url_for("outfits_views.outfits")}}'><img src="/static/images/outfits_icon.svg" class="icon">Outfits</a>
+		<a class="link apperance" href='{{ url_for("views.home") }}'><img src="/static/images/profile_icon.svg" class="icon">Profile</a>
+	</nav>
+{% endblock %}

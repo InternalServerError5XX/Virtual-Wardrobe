@@ -1,0 +1,68 @@
+{% extends "logged-in-layout.html" %}
+
+{% block title %}<title>Wishlist</title>{% endblock %}
+
+{% block content %}
+    <!--SEARCH-->
+    <form class="buttons">
+        <input class="search_button search_animation" type="text" name="search" placeholder="Search">
+    </form>
+
+    <!--FAVOURITE-->
+    <!-- <button class="favourite_button apperance" onClick="location.href='{{ url_for("views.wardrobe") }}'+'?favourite=Type' ">Favourite</button> -->
+    {% if favourites_only == False%}
+        <button class="favourite_button apperance" onClick="location.href='{{ url_for("wish_views.wish_list") }}'+'?favourite=True' ">Favourite</button>
+    {% else %}
+        <button class="favourite_button_tapped apperance" onClick="location.href='{{ url_for("wish_views.wish_list") }}'">Favourite</button>
+    {% endif %}
+
+
+    <!--USER WEAR-->
+    <div class="items">
+        {% if wears_url_list and wears_url_list|length > 0  %}
+            {% for item in user_wears %}
+                    <div class="wishlist_item">
+                        <div class="item_header">
+                            {% if item.favourite == False %}
+                            <form method="post">
+                            <input type="hidden" name="item_id" value="{{ item.id }}">
+                            <input name="favourite" class="favourite_item" type="submit" value="" autocomplete="off">
+                            </form>
+                        {% else %}
+                            <form method="post">
+                            <input type="hidden" name="item_id" value="{{ item.id }}">
+                            <input name="favourite" class="favourite_item_tapped" type="submit" value="" autocomplete="off">
+                            </form>
+                        {% endif %}
+                            <span class="item_name"> {{ item.label }} </span>
+                        </div>
+                        <a href= "{{url_for('wish_views.wish_list') + item.id|string}}">
+                            <div>
+                                <img class="item_img" src={{wears_url_list[loop.index-1]}}>
+                            </div>
+                        </a>
+                        <form action="{{ url_for('wish_views.wish_move', id=item.id) }}" method="post">
+                            <button name="move_to_wardrobe" class="wishlist_button">Add to wardrobe</button>
+                        </form>
+
+                    </div>
+            {% endfor %}
+    </div>
+    {%else%}
+        <div class="no_items apperance">{{message}}</div>
+    {% endif %}
+
+    <!--ADD-->
+    <button class="add_button apperance"><img src="/static/images/add_button.svg" width="200" onClick="location.href='{{ url_for("wish_views.add_wish") }}'"></button>
+
+	<!--NAVIGATION-->
+	<nav class="nav">
+		<a class="link apperance" href='{{ url_for("views.wardrobe") }}' method='get'><img src="/static/images/wardrobe_icon.svg" class="icon">Wardrobe</a>
+		<a class="link apperance" href='{{ url_for("wish_views.wish_list") }}'><img src="/static/images/wishlist_tapped.svg" class="icon">Wishlist</a>
+		<a class="link logo apperance" href='{{url_for("generate_views.generate")}}'><img src="/static/images/logo icon.svg"></a>
+		<a class="link apperance" href='{{url_for("outfits_views.outfits")}}'><img src="/static/images/outfits_icon.svg" class="icon">Outfits</a>
+		<a class="link apperance" href='{{ url_for("views.home") }}'><img src="/static/images/profile_icon.svg" class="icon">Profile</a>
+	</nav>
+
+{% endblock %}	
+

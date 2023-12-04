@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block title %}<title>Sign Up</title>{% endblock %}
+
+{% block content %}
+
+<div class="confirm_con apperance">
+	<div class="form_title">Confirm email</div>
+	<div class="code">We have sent the code to your email</div>
+	<form action='{{ url_for("auth.confirm_email") }}' class="form" method="post">
+		  <input class="input" type="text" placeholder="verification code">
+		  <a class="resend" href="#">Resend the code</a>
+		  <input class="input next" type="submit" value="Sign up">
+	</form>
+</div>
+
+{% endblock %}	
+

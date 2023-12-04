@@ -1,0 +1,22 @@
+{% extends "logged-in-layout.html" %}
+
+{% block title %}<title>ERROR {{error}}</title>{% endblock %}
+{% block content %}
+
+   <!--TITLE-->
+    <div class="settings apperance">
+		<div class="adding_title">ERROR {{error_code}}</div>
+	</div>
+
+	<div class="error apperance">{{description}}</div>
+	<div class="error_back apperance"></div>
+
+<!--NAVIGATION-->
+	<nav class="nav">
+		<a class="link apperance" href='{{ url_for("views.wardrobe") }}' method='get'><img src="/static/images/wardrobe_icon.svg" class="icon">Wardrobe</a>
+		<a class="link apperance" href='{{ url_for("wish_views.wish_list") }}'><img src="/static/images/wishlist_icon.svg" class="icon">Wishlist</a>
+		<a class="link logo apperance" href='{{url_for("generate_views.generate")}}'><img src="/static/images/logo icon.svg"></a>
+		<a class="link apperance" href='{{url_for("outfits_views.outfits")}}'><img src="/static/images/outfits_icon.svg" class="icon">Outfits</a>
+		<a class="link apperance" href='{{ url_for("views.home") }}'><img src="/static/images/profile_icon.svg" class="icon">Profile</a>
+	</nav>
+{% endblock %}

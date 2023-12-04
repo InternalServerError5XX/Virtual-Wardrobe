@@ -1,0 +1,54 @@
+{% extends "logged-in-layout.html" %}
+
+{% block title %}<title>Create Outfit</title>{% endblock %}
+{% block content %}
+
+   <!--TITLE-->
+		<div class="settings apperance">
+		<button class="back_button" onClick="location.href='{{ url_for("outfits_views.outfits") }}'"></button>
+		<div class="adding_title">Creating new Outfit</div>
+	</div>
+
+	<!--LABEL-->
+	<div class="generation_label apperance">
+		<label for="label" class="info_name">Label</label>
+        <form method="post" enctype="multipart/form-data">
+            <div class="generating_plates apperance">
+				{% if current_wears[0] != '0' %}
+					<img src="{{ s3_func(img_urls[0])}}" class="outfit_wear_img">
+				{% else %}
+					<a href='{{ url_for("outfits_views.add_wear_to_outfit", Hat=current_wears[0], Body=current_wears[1], Legs=current_wears[2], Feet=current_wears[3], type="Hat") }}' class="hat_generation"></a>
+				{% endif %}
+
+				{% if current_wears[1] != '0' %}
+					<img src="{{ s3_func(img_urls[1])}}" class="outfit_wear_img">
+				{% else %}
+					<a href='{{ url_for("outfits_views.add_wear_to_outfit", Hat=current_wears[0], Body=current_wears[1], Legs=current_wears[2], Feet=current_wears[3], type="Body") }}' class="body_generation"></a>
+				{% endif %}
+
+				{% if current_wears[2] != '0' %}
+					<img src="{{ s3_func(img_urls[2])}}" class="outfit_wear_img">
+				{% else %}
+					<a href='{{ url_for("outfits_views.add_wear_to_outfit", Hat=current_wears[0], Body=current_wears[1], Legs=current_wears[2], Feet=current_wears[3], type="Legs") }}' class="legs_generation"></a>
+				{% endif %}
+
+				{% if current_wears[3] != '0' %}
+					<img src="{{ s3_func(img_urls[3])}}" class="outfit_wear_img">
+				{% else %}
+					<a href='{{ url_for("outfits_views.add_wear_to_outfit", Hat=current_wears[0], Body=current_wears[1], Legs=current_wears[2], Feet=current_wears[3], type="Feet") }}' class="feet_generation"></a>
+				{% endif %}
+	        </div>
+  			<input class="edit" type="text" required id="label" name="outfit_label">
+            <input class="outfit_creation" type="submit" value="Create">
+        </form>
+	</div>
+
+<!--NAVIGATION-->
+	<nav class="nav">
+		<a class="link apperance" href='{{ url_for("views.wardrobe") }}' method='get'><img src="/static/images/wardrobe_icon.svg" class="icon">Wardrobe</a>
+		<a class="link apperance" href='{{ url_for("wish_views.wish_list") }}'><img src="/static/images/wishlist_icon.svg" class="icon">Wishlist</a>
+		<a class="link logo apperance" href='{{url_for("generate_views.generate")}}'><img src="/static/images/logo icon.svg"></a>
+		<a class="link apperance" href='{{url_for("outfits_views.outfits")}}'><img src="/static/images/outfits_tapped.svg" class="icon">Outfits</a>
+		<a class="link apperance" href='{{ url_for("views.home") }}'><img src="/static/images/profile_icon.svg" class="icon">Profile</a>
+	</nav>
+{% endblock %}

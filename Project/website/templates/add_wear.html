@@ -1,0 +1,86 @@
+{% extends "logged-in-layout.html" %}
+
+{% block title %}<title>Add Item</title>{% endblock %}
+
+{% block content %}
+
+<!--<div class="login_con apperance">-->
+<!--	<div class="form_title">Add Item</div>-->
+<!--	<form action='{{ url_for("views.add_wear") }}' class="form" method="post" enctype=multipart/form-data>-->
+<!--		  <input class="input" type="text" placeholder="item label" name="label" required>-->
+<!--		  <input class="input" type="text" placeholder="item color" name="color" required>-->
+<!--            <h1>Input type</h1>-->
+<!--		  <p>-->
+<!--		  <input type="radio" name="options" id="option1" value="head"> Head <br>-->
+<!--		  <input type="radio" name="options" id="option2" value="body"> Body <br>-->
+<!--		  <input type="radio" name="options" id="option3" value="legs"> Legs <br>-->
+<!--			<input type="radio" name="options" id="option4" value="foots"> Foots <br>-->
+<!--		  </p>-->
+
+<!--          <input class="input" type="file" placeholder="upload photo" name="file" required accept="image/*">-->
+<!--		  <input class="input next" type="submit" value="ADD">-->
+<!--	</form>-->
+<!--</div>-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='script.js') }}"></script>
+	<!--TITLE-->
+	<div class="settings apperance">
+		<button class="back_button" onClick="location.href='{{ url_for("views.wardrobe") }}'"></button>
+		<div class="adding_title">Adding new item</div>
+	</div>
+
+
+	<!--ADDING-->
+	<div class="upload_form apperance">
+
+				  {% if msg and msg|length > 0 %}
+		 			<div class="file_error" id="message">
+						{% for message in msg %}
+						<div class="error_text" id="message">
+						  {{ message }}
+						</div>
+						{% endfor %}
+					</div>
+				  {% endif %}
+
+			<form class="form" enctype="multipart/form-data" method="post">
+
+				<!--PHOTO-->
+				<div class="new_gallery"></div>
+  				<input class="upload_photo" type="file" name="file" multiple accept="image/jpeg, image/jpg, image/jfif" placeholder="Upload photo" id="photo_uploading">
+  				<label for="photo_uploading" class="feedback__label">Upload photo</label>
+
+
+  				<!--ENTERING--->
+  				<input class="upload" type="text" placeholder="Item name" name = "label" required>
+  				<input class="upload" type="text" placeholder="Item color" name ="color" required>
+
+  				<!--RADIO-->
+  				<div class="typeform_title">Item type</div>
+  				<div class="itemtype_form text_animation">
+  					<input class="radio_button" id="hat" type="radio" name="type" value="Hat" required>
+  						<label for="hat" class="radio_text">Head</label>
+  					<input class="radio_button" id="body" type="radio" name="type" value="Body">
+  						<label for="body" class="radio_text">Body</label>
+  					<input class="radio_button" id="legs" type="radio" name="type" value="Legs">
+  						<label for="legs" class="radio_text">Legs</label>
+  					<input class="radio_button" id="feet" type="radio" name="type" value="Feet">
+  						<label for="feet" class="radio_text">Feet</label>
+  				</div>
+
+  				<input class="submit" type="submit" value="Submit">
+			</form>
+		<div class="fill_footer_space"></div>
+		</div>
+
+	<!--NAVIGATION-->
+	<nav class="nav">
+		<a class="link apperance" href='{{ url_for("views.wardrobe") }}' method = 'get'><img src="/static/images/wardrobe_tapped.svg" class="icon">Wardrobe</a>
+		<a class="link apperance" href='{{ url_for("wish_views.wish_list") }}'><img src="/static/images/wishlist_icon.svg" class="icon">Wishlist</a>
+		<a class="link logo apperance" href='{{url_for("generate_views.generate")}}'><img src="/static/images/logo icon.svg"></a>
+		<a class="link apperance" href='{{url_for("outfits_views.outfits")}}'><img src="/static/images/outfits_icon.svg" class="icon">Outfits</a>
+		<a class="link apperance" href='{{ url_for("views.home") }}'><img src="/static/images/profile_icon.svg" class="icon">Profile</a>
+	</nav>
+
+
+{% endblock %}

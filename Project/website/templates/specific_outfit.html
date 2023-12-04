@@ -1,0 +1,67 @@
+{% extends "logged-in-layout.html" %}
+
+{% block title %}<title>Outfits</title>{% endblock %}
+{% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='script.js') }}"></script>
+	<!--TITLE-->
+	<div class="settings apperance">
+		<button class="back_button" onClick="location.href='outfits.html'"></button>
+		<div class="adding_title">{{outfit.label}}</div>
+	</div>
+
+	<!--FLESH DELETE-->
+	<div class="modal">
+    	<div class="modal_content">
+      
+      		<!--TITLE-->
+      		<div class="delete_title">
+				Delete
+      			<span>"{{outfit.label}}"</span>
+      		</div>
+      
+      		<!--BUTTONS-->
+      		<div class="delete_buttons">
+      			<div class="no_button">NO</div>
+				<form method="post">
+					<input name="favourite" class="yes_button" type="submit" value="YES" autocomplete="off">
+				</form>
+      		</div>
+    	</div>
+  	</div>
+
+	<!--ITEMS-->
+	<div class="generating_items apperance">
+		{% for wear in outfit.items %}
+
+				<div class="single_item">
+					<div class="item_header">
+						<span class="generation_name"> {{wear.label }}</span>
+					</div>
+					<div><img class="item_img" src={{s3_func(wear.url)}}></div>
+				</div>
+		{% endfor %}
+	</div>
+
+	<!--LABEL-->
+	<div class="generation_label apperance">
+		<label for="label" class="info_name">Label</label>
+			<div class="current_outfit_label"> {{outfit.label}}</div>
+	</div>
+
+	<!--OUTFIT BUTTONS-->
+	<div class="item_buttons apperance">
+			<button class="delete_button">
+				<span class="edit_text" id="callback-button">Delete</span>
+			</button>
+	</div>
+
+<!--NAVIGATION-->
+	<nav class="nav">
+		<a class="link apperance" href='{{ url_for("views.wardrobe") }}' method='get'><img src="/static/images/wardrobe_icon.svg" class="icon">Wardrobe</a>
+		<a class="link apperance" href='{{ url_for("wish_views.wish_list") }}'><img src="/static/images/wishlist_icon.svg" class="icon">Wishlist</a>
+		<a class="link logo apperance" href='{{url_for("generate_views.generate")}}'><img src="/static/images/logo icon.svg"></a>
+		<a class="link apperance" href='{{url_for("outfits_views.outfits")}}'><img src="/static/images/outfits_tapped.svg" class="icon">Outfits</a>
+		<a class="link apperance" href='{{ url_for("views.home") }}'><img src="/static/images/profile_icon.svg" class="icon">Profile</a>
+	</nav>
+{% endblock %}

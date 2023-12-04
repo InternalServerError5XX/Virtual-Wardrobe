@@ -1,0 +1,67 @@
+{% extends "logged-in-layout.html" %}
+
+{% block title %}<title>Outfits</title>{% endblock %}
+{% block content %}
+<!--SEARCH-->
+    <form class="buttons">
+        <input class="search_button search_animation" type="text" name="search" placeholder="Search">
+    </form>
+
+    <!--FAVOURITE-->
+    {% if favourites_only == False%}
+        <button class="favourite_button apperance" onClick="location.href='{{ url_for("outfits_views.outfits") }}'+'?favourite=True' ">Favourite</button>
+    {% else %}
+        <button class="favourite_button_tapped apperance" onClick="location.href='{{ url_for("outfits_views.outfits") }}'">Favourite</button>
+    {% endif %}
+
+
+    <!--USER OUTFIT-->
+    <div class="items">
+        {% if wear_urls and wear_urls|length > 0  %}
+            {% for outfit in outfits %}
+                    <div class="wishlist_header apperance">
+                        {% if outfit.favourite == False %}
+                            <form method="post">
+                            <input type="hidden" name="outfit_id" value="{{ outfit.id }}">
+                            <input name="favourite" class="outfit_favourite" type="submit" value="" autocomplete="off">
+                            </form>
+                        {% else %}
+                            <form method="post">
+                            <input type="hidden" name="outfit_id" value="{{ outfit.id }}">
+                            <input name="favourite" class="outfit_favourite_tapped" type="submit" value="" autocomplete="off">
+                            </form>
+                        {% endif %}
+                        <span class="plate_header">{{ outfit.label }}</span>
+                    </div>
+                    <!--PLATES-->
+                <a href= {{ outfit.id }} class="outfits_link">
+                    <div class="wishlist_container apperance">
+                        {% for wear in outfit.items %}
+
+                                <div class="wishlist_item">
+                                    <div class="item_header">
+                                        <span class="generation_name"> {{wear.label }}</span>
+                                    </div>
+                                    <div><img class="wishlist_img" src={{s3_func(wear.url)}}></div>
+                                </div>
+                        {% endfor %}
+                    </div>
+                </a>
+            {% endfor %}
+    </div>
+    {%else%}
+        <div class="no_items apperance">{{message}}</div>
+    {% endif %}
+
+	<!--ADD-->
+	<button class="add_button apperance"><img src="/static/images/add_button.svg" width="200" onClick="location.href='{{ url_for("outfits_views.add_outfit", Hat=0, Body=0, Legs=0, Feet=0) }}'"></button>
+
+<!--NAVIGATION-->
+	<nav class="nav">
+		<a class="link apperance" href='{{ url_for("views.wardrobe") }}' method='get'><img src="/static/images/wardrobe_icon.svg" class="icon">Wardrobe</a>
+		<a class="link apperance" href='{{ url_for("wish_views.wish_list") }}'><img src="/static/images/wishlist_icon.svg" class="icon">Wishlist</a>
+		<a class="link logo apperance" href='{{url_for("generate_views.generate")}}'><img src="/static/images/logo icon.svg"></a>
+		<a class="link apperance" href='{{url_for("outfits_views.outfits")}}'><img src="/static/images/outfits_tapped.svg" class="icon">Outfits</a>
+		<a class="link apperance" href='{{ url_for("views.home") }}'><img src="/static/images/profile_icon.svg" class="icon">Profile</a>
+	</nav>
+{% endblock %}

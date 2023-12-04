@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+{% block title %}<title>My Commode</title>{% endblock %}
+{% block content1 %} <div class="main_title text_animation">My<p>Commode</p></div> {% endblock %}
+{% block content %}
+<div class="buttons apperance">
+	<button class="signup_button" onClick="location.href='{{ url_for("auth.sign_up") }}'" method = 'get'>Sign Up</button>
+	<button class="login_button" onClick="location.href='{{ url_for("auth.log_in") }}'" method = 'get'>Log In</button>
+</div>
+{% endblock %}

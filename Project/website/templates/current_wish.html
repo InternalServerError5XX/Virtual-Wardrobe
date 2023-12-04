@@ -1,0 +1,81 @@
+
+
+<link rel="stylesheet" href="style.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+{% extends "logged-in-layout.html" %}
+
+{% block title %}<title>My Commode</title>{% endblock %}
+
+{% block content %}
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script type="text/javascript" src="{{ url_for('static',filename='script.js') }}"></script>
+	<!--TITLE-->
+	<div class="editting apperance">
+		<button class="back_button" onClick="location.href='{{ url_for("wish_views.wish_list") }}'"></button>
+		<div class="adding_title">{{ wear.label }}</div>
+	</div>
+
+	<!--FLESH DELETE-->
+	<div class="modal">
+    	<div class="modal_content">
+
+      		<!--TITLE-->
+      		<div class="delete_title">
+				Delete
+      			<span>"{{ wear.label }}"</span>
+      		</div>
+
+      		<!--BUTTONS-->
+      		<div class="delete_buttons">
+      			<div class="no_button">NO</div>
+				<form method="post">
+					<input name="favourite" class="yes_button" type="submit" value="YES" autocomplete="off">
+				</form>
+      		</div>
+    	</div>
+  	</div>
+
+	<!--ITEM-->
+	<div class="item_container apperance">
+
+		<!--PHOTO-->
+		<div><img class="item_photo" src={{ wear_img }}></div>
+
+		<!--INFO-->
+		<div class="info_name">Lable</div>
+		<div class="item_info">{{ wear.label }}</div>
+		<div class="info_name">Color</div>
+		<div class="item_info">{{ wear.color }}</div>
+		<div class="info_name">Item type</div>
+		<div class="item_info">{{ wear.type_ }}</div>
+		<div class="info_name">Price</div>
+		<div class="item_info">{{ wear.price }}</div>
+		<div class="info_name">Item location</div>
+		<div class="item_info">{{ wear.location}}</div>
+
+
+		<!--LOWER BUTTONS-->
+		<div class="item_buttons">
+			<button class="delete_button">
+				<span class="edit_text" id="callback-button">Delete</span>
+			</button>
+			<div onClick="location.href='/wish_views/wishlist_edit/{{ wear.id|string }}'">
+			<button class="edit_button">
+				<span class="edit_text">Edit</span>
+			</button>
+			</div>
+		</div>
+	</div>
+
+	<!--NAVIGATION-->
+	<nav class="nav">
+		<a class="link apperance" href='{{ url_for("views.wardrobe") }}' method='get'><img src="/static/images/wardrobe_icon.svg" class="icon">Wardrobe</a>
+		<a class="link apperance" href='{{ url_for("wish_views.wish_list") }}'><img src="/static/images/wishlist_tapped.svg" class="icon">Wishlist</a>
+		<a class="link logo apperance" href='{{url_for("generate_views.generate")}}'><img src="/static/images/logo icon.svg"></a>
+		<a class="link apperance" href='{{url_for("outfits_views.outfits")}}'><img src="/static/images/outfits_icon.svg" class="icon">Outfits</a>
+		<a class="link apperance" href='{{ url_for("views.home") }}'><img src="/static/images/profile_icon.svg" class="icon">Profile</a>
+	</nav>
+{% endblock %}

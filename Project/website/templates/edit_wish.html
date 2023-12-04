@@ -1,0 +1,74 @@
+{% extends "logged-in-layout.html" %}
+
+{% block title %}<title>My Commode</title>{% endblock %}
+
+{% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='script.js') }}"></script>
+
+	<!--TITLE-->
+	<div class="settings apperance">
+		<button class="back_button" onClick="location.href='{{ url_for("wish_views.wish_list") }}'"></button>
+		<div class="adding_title">Editing "{{ wear.label }}"</div>
+	</div>
+
+
+	<!--EDITING-->
+	<div class="editing_form apperance">
+
+		{% if msg and msg|length > 0 %}
+		 			<div class="file_error" id="message">
+						{% for message in msg %}
+						<div class="error_text" id="message">
+						  {{ message }}
+						</div>
+						{% endfor %}
+					</div>
+				  {% endif %}
+
+		<form action="" class="form" enctype="multipart/form-data" method="post">
+
+			<!--PHOTO-->
+			<div class="gallery"></div>
+			<input class="upload_photo" type="file" name="file" multiple accept="image/jpeg, image/jpg, image/jfif" placeholder="Upload photo" id="photo_uploading">
+  			<label for="photo_uploading" class="photo_lable" id="photo_uploader">Tap to upload a new photo</label>
+
+
+		<!--ENTERING--->
+		<label for="label" class="info_name">Label</label>
+  			<input class="edit" type="text" required id="label" name="label">
+  		<label for="label" class="info_name">Color</label>
+  			<input class="edit" type="text" required id="color" name="color">
+					<label for="label" class="info_name">Price</label>
+  			<input class="edit" type="text" required id="price" name="price">
+  		<label for="label" class="info_name">Location</label>
+  			<input class="edit" type="text" required id="location" name="location">
+
+  		<!--RADIO-->
+  		<div class="info_name">Item type</div>
+  		<div class="edittype_form text_animation">
+  			<input class="radio_button" id="hat" type="radio" name="type" value="Hat" required>
+  				<label for="hat" class="radio_text">Hat</label>
+  			<input class="radio_button" id="body" type="radio" name="type" value="Body">
+  				<label for="body" class="radio_text">Body</label>
+  			<input class="radio_button" id="legs" type="radio" name="type" value="Legs">
+  				<label for="legs" class="radio_text">Legs</label>
+  			<input class="radio_button" id="feet" type="radio" name="type" value="Feet">
+  				<label for="feet" class="radio_text">Feet</label>
+
+  		</div>
+		<input class="edit_submit" type="submit" value="Save">
+		<div class="fill_edit_wish_footer_space"></div>
+	</form>
+	</div>
+
+
+	<!--NAVIGATION-->
+	<nav class="nav">
+		<a class="link apperance" href='{{ url_for("views.wardrobe") }}' method='get'><img src="/static/images/wardrobe_icon.svg" class="icon">Wardrobe</a>
+		<a class="link apperance" href='{{ url_for("wish_views.wish_list") }}'><img src="/static/images/wishlist_tapped.svg" class="icon">Wishlist</a>
+		<a class="link logo apperance" href='{{url_for("generate_views.generate")}}'><img src="/static/images/logo icon.svg"></a>
+		<a class="link apperance" href='{{url_for("outfits_views.outfits")}}'><img src="/static/images/outfits_icon.svg" class="icon">Outfits</a>
+		<a class="link apperance" href='{{ url_for("views.home") }}'><img src="/static/images/profile_icon.svg" class="icon">Profile</a>
+	</nav>
+{% endblock %}

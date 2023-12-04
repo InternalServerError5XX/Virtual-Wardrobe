@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block title %}<title>Log In</title>{% endblock %}
+{% block content1 %} <div class="upeer_title text_animation">My<p>Commode</p></div> {% endblock %}
+{% block content %}
+
+<div class="login_con apperance">
+	<div class="form_title">Log in</div>
+			<form action='{{ url_for("auth.log_in") }}' class="form" method="post">
+  				<input class="input" type="email" placeholder="email adress" name="email" required>
+		  		<input class="input" type="password" placeholder="password" name="password" required>
+
+  				<!--REMEMBER-->
+  				<label class="checkbox style-c">
+        			<input type="checkbox" name="remember_me">
+        			<div class="checkbox__checkmark"></div>
+        			<div class="checkbox__body">Remember me</div>
+      			</label>
+
+<!--      			<a class="forgot" href="restore_password.html">Forgot your password?</a>-->
+				<a class="resend" href='{{ url_for("auth.sign_up") }}'>I don`t have an account</a>
+		  		<input class="input next" type="submit" value="Log in">
+			</form>
+
+</div>
+
+{% endblock %}	

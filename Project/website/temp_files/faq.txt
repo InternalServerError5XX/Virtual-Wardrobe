@@ -1,0 +1,1 @@
+directory witch contains temp images before sending it to s3 bucket
