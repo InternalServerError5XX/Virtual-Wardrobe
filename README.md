@@ -3,9 +3,12 @@ Virtual Wardrobe is our collaborative web application developed as part of the S
 
 ## Technology stack
 - ### Server
-  - Django
-  - Microsoft SQL Server
+  - Flask
+  - SQLite
+  - PythonAnywhere
+  - AWS S3
 - ### Client
+  - Jinja2
   - HTML
   - CSS
   - JS (JQuery) 
